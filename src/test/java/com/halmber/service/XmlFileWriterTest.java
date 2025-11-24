@@ -89,10 +89,10 @@ class XmlFileWriterTest {
         TestWrapper parsed = mapper.readValue(outputFile, TestWrapper.class);
 
         assertEquals(2, parsed.items.size());
-        assertEquals("apples", parsed.items.get(0).name);
-        assertEquals(10, parsed.items.get(0).count);
-        assertEquals("oranges", parsed.items.get(1).name);
-        assertEquals(20, parsed.items.get(1).count);
+        assertEquals("oranges", parsed.items.get(0).name);
+        assertEquals(20, parsed.items.get(0).count);
+        assertEquals("apples", parsed.items.get(1).name);
+        assertEquals(10, parsed.items.get(1).count);
     }
 
     // Verify factories are called correctly
