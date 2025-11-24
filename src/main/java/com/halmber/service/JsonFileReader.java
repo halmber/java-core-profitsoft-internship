@@ -51,7 +51,7 @@ public class JsonFileReader {
                     } else {
                         consumer.accept(obj);
                     }
-                } catch (Exception e) {
+                } catch (IOException e) {
                     throw new IllegalArgumentException(String.format("Failed to deserialize element. %s%n", e.getMessage()));
                 }
             }

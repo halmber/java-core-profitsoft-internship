@@ -40,6 +40,7 @@ public class StatisticsService {
         try {
             processingService.processAllFiles(statistics);
             writeResults();
+            System.out.println("\nStatistics processing completed successfully");
         } catch (IOException e) {
             System.err.printf("Failed to process statistics: %s%n", e.getMessage());
             System.exit(1);

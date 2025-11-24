@@ -39,7 +39,7 @@ public class FileService {
             throw new IllegalArgumentException("Path is not a directory: " + directoryPath);
         }
 
-        return Files.newDirectoryStream(dir, "*" + extension);
+        return Files.newDirectoryStream(dir, "*" + extension.toLowerCase());
     }
 
     /**
@@ -76,6 +76,10 @@ public class FileService {
         }
 
         Path file = dir.resolve(fileName);
+
+        if (Files.exists(file) && !file.toFile().canWrite()) {
+            throw new IOException("File is read-only and cannot be deleted or modified: " + file);
+        }
 
         try {
             Files.deleteIfExists(file);

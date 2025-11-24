@@ -24,6 +24,9 @@ public class StatisticProcessor {
     }
 
     private <T> void processStatisticAttr(T value, Map<String, Integer> statistics) {
+        if (value == null) {
+            return;
+        }
         if (value instanceof String str) {
             Set<String> elements = getSetStringAttributes(str);
             elements.forEach(val -> statistics.merge(val, 1, Integer::sum));

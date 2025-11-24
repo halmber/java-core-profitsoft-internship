@@ -33,7 +33,7 @@ public class ConsoleInputHandler {
         System.out.printf("  Input directory: %s%n", inputDirectory);
         System.out.printf("  Attribute: %s%n", attribute);
         System.out.printf("  Output directory: %s%n", ApplicationConfig.getDefaultOutputDirectory());
-        System.out.printf("  Threads count: %s%n%n", ApplicationConfig.getDefaultThreadPoolSize());
+        System.out.printf("  Threads count: %s%n%n", threads);
 
         System.out.println("====== END Order Statistics Configuration END ======\n");
 
