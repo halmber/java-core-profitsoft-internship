@@ -17,7 +17,8 @@ import java.util.stream.Collectors;
  * This class is fully generic and works with any types of items {@code I} and
  * wrappers {@code W}, provided that corresponding {@link StatisticItemFactory} and
  * {@link StatisticsWrapperFactory} are supplied. It converts a map of statistics
- * into a list of items and wraps them before serializing to XML using Jackson.
+ * into a list of items, sorts them by count in descending order, and wraps them
+ * before serializing to XML using Jackson.
  * </p>
  *
  * @param <W> the wrapper type that contains a collection of items
@@ -42,9 +43,11 @@ public class XmlFileWriter<W, I> {
      * Writes the given statistics to the specified XML file.
      * <p>
      * Each entry in the map is converted to an item using {@link #itemFactory},
-     * and all items are then wrapped using {@link #wrapperFactory}. The resulting
-     * wrapper object is serialized to XML with pretty printing enabled.
+     * sorted by count in descending order (highest count first), and all items
+     * are then wrapped using {@link #wrapperFactory}. The resulting wrapper object
+     * is serialized to XML with pretty printing enabled.
      * </p>
+     * <p>Sorting complexity: O(n log n) where n is the number of entries.
      *
      * @param outputFile the file to write the XML content to; if it exists, it will be overwritten
      * @param statistics a map of statistics where the key is the statistic name and the value is the count
@@ -52,6 +55,7 @@ public class XmlFileWriter<W, I> {
      */
     public void writeStatistics(File outputFile, Map<String, Integer> statistics) throws IOException {
         List<I> entries = statistics.entrySet().stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue())) // Sort descending by count
                 .map(itemFactory::create)
                 .collect(Collectors.toList());
 
