@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ord-001",
+    "customer": {
+      "id": "cust-101",
+      "fullName": "Bohdan Roh",
+      "email": "bohdan@example.com",
+      "phone": "+380501112233",
+      "city": "Lviv"
+    },
+    "status": "NEW",
+    "tags": "gift, urgent",
+    "amount": "499.99",
+    "paymentMethod": "card",
+    "createdAt": 1731600000
+  },
+  {
+    "id": "ord-002",
+    "customer": {
+      "id": "cust-102",
+      "fullName": "Petro Poroh",
+      "email": "petro@example.com",
+      "phone": "+380501112233",
+      "city": "Kivy"
+    },
+    "status": "DONE",
+    "tags": "gift",
+    "amount": 499.99,
+    "paymentMethod": "card",
+    "createdAt": 1731600000
+  },
+  {
+    "id": "ord-003",
+    "customer": {
+      "id": "cust-103",
+      "fullName": "Ivan Bobyl",
+      "email": "zelya@example.com",
+      "phone": "+380501112233",
+      "city": "Kivy"
+    },
+    "status": "NEW",
+    "tags": "gift, urgent, newCustomer",
+    "amount": 499.99,
+    "paymentMethod": "card",
+    "createdAt": 1731600000
+  }
+]
