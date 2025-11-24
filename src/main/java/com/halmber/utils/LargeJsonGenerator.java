@@ -101,7 +101,9 @@ public class LargeJsonGenerator {
     }
 
     public static void main(String[] args) throws Exception {
-        // Example: generate 1 million orders, +-340 MB disk space
-        generateLargeJson("src/main/resources/large_orders.json", 1_000_000L);
+        // Example: generate 1 million orders in 100 files, 10_000 per one, +-340 MB disk space
+        for (int i = 0; i < 100; i++) {
+            generateLargeJson(String.format("src/main/resources/large_orders%s.json", i), 10_000L);
+        }
     }
 }
