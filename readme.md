@@ -331,6 +331,17 @@ Output XML File
 - Maven 3.8+
 - IntelliJ IDEA (optional, for running from IDE)
 
+### Run from IDE
+
+You can also run the project directly from **IntelliJ IDEA**:
+
+1. Open the project in IntelliJ IDEA.
+2. Make sure the correct JDK (21+) is selected.
+3. Open the `Main` class.
+4. Right-click on the class → **Run 'Main.main()'**.
+
+> All dependencies are automatically resolved by the IDE.
+
 ### Start project using Maven (with dependencies)
 
 ```
