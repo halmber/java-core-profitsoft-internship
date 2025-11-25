@@ -4,7 +4,9 @@ import lombok.Getter;
 
 /**
  * Configuration holder for application settings.
- * Encapsulates all configuration parameters in one place.
+ * <p>
+ * Encapsulates all configuration parameters in one place. Provides default values and utility methods
+ * for accessing configuration properties.
  */
 @Getter
 public class ApplicationConfig {

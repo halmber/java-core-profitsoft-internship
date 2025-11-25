@@ -27,17 +27,11 @@ public class PerformanceMonitor {
         this.startCpuTime = threadBean.getCurrentThreadCpuTime();
     }
 
-    /**
-     * Get current used memory in bytes
-     */
     private long getUsedMemory() {
         return memoryBean.getHeapMemoryUsage().getUsed() +
                 memoryBean.getNonHeapMemoryUsage().getUsed();
     }
 
-    /**
-     * Print comprehensive performance report
-     */
     public void printReport() {
         long endTime = System.nanoTime();
         long endMemory = getUsedMemory();

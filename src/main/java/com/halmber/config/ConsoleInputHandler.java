@@ -3,7 +3,9 @@ package com.halmber.config;
 import java.util.Scanner;
 
 /**
- * Handles user input from console for configuration parameters.
+ * Handles user input from the console for application configuration.
+ * <p>
+ * Performs basic input validation and user confirmation for large thread counts.
  */
 public class ConsoleInputHandler {
     private final Scanner scanner;
@@ -13,7 +15,7 @@ public class ConsoleInputHandler {
     }
 
     /**
-     * Prompts user for configuration parameters and creates ApplicationConfig.
+     * Prompts user for configuration parameters and creates {@link ApplicationConfig}.
      * Uses default values if user presses Enter without input.
      */
     public ApplicationConfig getConfiguration() {

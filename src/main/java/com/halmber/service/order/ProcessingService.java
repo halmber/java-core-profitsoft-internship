@@ -16,7 +16,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Service responsible for processing order files in parallel.
- * Manages thread pool and coordinates file processing tasks.
+ * Manages a thread pool and coordinates processing tasks for JSON files.
+ * <p>
+ * Uses {@link StatisticProcessor} to aggregate statistics from orders.
  */
 public class ProcessingService {
     private final ApplicationConfig config;
@@ -30,7 +32,13 @@ public class ProcessingService {
     }
 
     /**
-     * Processes all JSON files from the input directory and aggregates statistics.
+     * Processes all JSON files in the configured input directory and aggregates statistics.
+     * <p>
+     * Files are processed concurrently using a fixed thread pool.
+     *
+     * @param statistics a thread-safe map to store aggregated statistics
+     * @throws IOException          if an I/O error occurs while reading the directory
+     * @throws InterruptedException if the thread pool is interrupted while awaiting completion
      */
     public void processAllFiles(Map<String, Integer> statistics) throws IOException, InterruptedException {
         validateInputDirectory();
@@ -57,6 +65,12 @@ public class ProcessingService {
         }
     }
 
+    /**
+     * Reads all JSON files from the input directory as a {@link DirectoryStream}.
+     *
+     * @return a {@link DirectoryStream} of JSON files
+     * @throws IOException if the directory cannot be read
+     */
     private DirectoryStream<Path> getJsonFiles() throws IOException {
         return FileService.listFilesAsStream(
                 config.getInputDirectory(),
@@ -64,14 +78,23 @@ public class ProcessingService {
         );
     }
 
-    // test 'execute' method (my default was 'submit')
+    /**
+     * Submits a processing task for each file to the executor service.
+     *
+     * @param files      JSON files to process
+     * @param statistics map to aggregate statistics
+     */
     private void submitProcessingTasks(DirectoryStream<Path> files, Map<String, Integer> statistics) {
         files.forEach(path -> executorService.execute(() -> processFile(path, statistics)));
     }
 
     /**
-     * Catching some errors from threads.
-     * Ignore files with invalid JSON and log error.
+     * Processes a single JSON file and updates the statistics map.
+     * <p>
+     * Ignores invalid files and logs errors.
+     *
+     * @param path       path to the JSON file
+     * @param statistics map to aggregate statistics
      */
     private void processFile(Path path, Map<String, Integer> statistics) {
         try {
@@ -99,6 +122,11 @@ public class ProcessingService {
         }
     }
 
+    /**
+     * Awaits termination of all submitted tasks.
+     *
+     * @throws InterruptedException if the thread pool is interrupted while waiting
+     */
     private void awaitCompletion() throws InterruptedException {
         executorService.shutdown();
         boolean terminated = executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);

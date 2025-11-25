@@ -15,7 +15,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Service responsible for orchestrating the entire statistics processing workflow.
- * Follows Single Responsibility Principle by delegating specific tasks to specialized services.
+ * <p>
+ * Delegates file processing to {@link ProcessingService} and writes aggregated results
+ * to an XML file using {@link XmlFileWriter}.
  */
 public class StatisticsService {
     private final ApplicationConfig config;
@@ -34,7 +36,9 @@ public class StatisticsService {
     }
 
     /**
-     * Processes all JSON files and generates statistics XML output.
+     * Processes all JSON files in the input directory and generates an XML statistics report.
+     * <p>
+     * Handles IO errors, interruptions, and unexpected exceptions.
      */
     public void processStatistics() {
         try {
@@ -55,6 +59,11 @@ public class StatisticsService {
         }
     }
 
+    /**
+     * Writes the aggregated statistics to an XML file in the configured output directory.
+     *
+     * @throws IOException if the output file cannot be created or written
+     */
     private void writeResults() throws IOException {
         Path outputPath = FileService.createFile(
                 config.getOutputDirectory(),
